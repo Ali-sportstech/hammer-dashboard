@@ -45,9 +45,9 @@ async function checkPw() {
 function renderDashboard() {
   const bytes = Uint8Array.from(atob(DASHBOARD_B64), c => c.charCodeAt(0));
   const html = new TextDecoder('utf-8').decode(bytes);
-  document.open();
-  document.write(html);
-  document.close();
+  const doc = document.implementation.createHTMLDocument('');
+  doc.open(); doc.write(html); doc.close();
+  document.documentElement.replaceWith(doc.documentElement);
 }
 document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') checkPw(); });
 (function() {
